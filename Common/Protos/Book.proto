@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceBook";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/api.proto";
+package GrpcServiceBook;
+
+// The greeting service definition.
+service LibBook {
+	// Sends a greeting
+	rpc Books (google.protobuf.Empty) returns ( BookCollection);
+}
+enum Genre{
+	SFI=0;
+	WAR=1;
+	Romance=2;
+	Novel=3;
+}
+message Book{
+
+int32 id=1;
+string Isbn=2;
+string author=3;
+google.protobuf.Timestamp published=4;
+int32 pages=5;
+string language=6;
+Genre genre=7;
+string title=8;
+
+
+}
+
+message BookCollection{
+	repeated Book book=1;
+}
