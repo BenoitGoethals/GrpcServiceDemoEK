@@ -1,0 +1,62 @@
+﻿<Window x:Class="ChatClient.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:interactivity="http://prismlibrary.com/"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="460" Width="600" >
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <interactivity:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+          
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding Room.Chatters,Mode=TwoWay,UpdateSourceTrigger=Default}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock >
+                            <Run Text="{Binding Path=Name}"/>
+                          
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Column="1" Margin="5,5,5,5" Orientation="Vertical">
+            <ListView Height="333" ItemsSource="{Binding Room. Messages,Mode=TwoWay,UpdateSourceTrigger=Default}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock >
+                                <Run Text="{Binding Path=Chatter.Name}"/>
+                                  <Run Text="=>"/>
+                                <Run Text="{Binding Path=Content}"/>
+                            </TextBlock>
+                          
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListView>
+            <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+                <Label Margin="5,5,5,5">Message</Label>
+                <TextBox Margin="5,5,5,5" Width="300" Background="Beige" Text="{Binding MessageText,Mode=TwoWay}"></TextBox>
+                <Button Margin="5,5,5,5" Command="{Binding SendCommand}">Send</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label  Margin="5,5,5,5" Content="User :" ></Label>
+                <Label  Margin="5,5,5,5" Content="{Binding LocalUser.Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
+            </StackPanel>
+          
+        </StackPanel>
+
+    </Grid>
+</Window>

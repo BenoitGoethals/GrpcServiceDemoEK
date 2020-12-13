@@ -3,18 +3,18 @@ syntax = "proto3";
 option csharp_namespace = "GrpcServiceTempature.Protos";
 package climat;
 
-// The greeting service definition.
+// The Climate service definition.
 service Climate {
 	// Sends a temp
 	rpc GetTemperature (HelloRequest) returns ( stream TempatureReply);
 }
 
-// The request message containing the user's name.
+// The request message containing the city.
 message HelloRequest {
 	string city = 1;
 }
 
-// The response message containing the greetings.
+// The response message containing the TempatureReply.
 message TempatureReply {
 	int32 message = 1;
 }

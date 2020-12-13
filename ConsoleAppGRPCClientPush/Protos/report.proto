@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "GrpcServiceClientPush.Protos";
+
+service Report{
+
+	rpc AddReport(stream Salta) returns (google.protobuf.Empty);
+}
+
+enum TypeContact{
+	Inf=0;
+	Armour=1;
+	Aie=2;
+	Ambush=3;
+}
+
+message Salta {
+	int32 id = 1;
+	google.protobuf.Timestamp SpottedDTG=2;
+	string location=3;
+	string description=4;
+	string remarks=5;
+	TypeContact contact=6;
+}
+
