@@ -37,6 +37,8 @@ namespace ChatCommon.model
             }
         }
 
+        public string Name { get; set; }
+
         public ChatRoom()
         {
          //   Chatters.Add(new Chatter() { Enabled = true, Guid = Guid.NewGuid(), Name = "sfdfdsfsd" });

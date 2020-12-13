@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GrpcServiceChatter.Services
 {
-    public class ChatRoomService
+    public class ChatRoomService:GrpcServiceChatter.ChatRoomService.ChatRoomServiceBase
     {
     }
 }
