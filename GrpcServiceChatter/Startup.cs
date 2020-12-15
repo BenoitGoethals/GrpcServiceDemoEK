@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GrpcServiceChatter.model;
+using GrpcServiceChatter.Services;
 
 namespace GrpcServiceChatter
 {
@@ -17,6 +19,7 @@ namespace GrpcServiceChatter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddSingleton<ChatRoomManager>(new ChatRoomManager());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +34,7 @@ namespace GrpcServiceChatter
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+               endpoints.MapGrpcService<ChatService>();
 
                 endpoints.MapGet("/", async context =>
                 {

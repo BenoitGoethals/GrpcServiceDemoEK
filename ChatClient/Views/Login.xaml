@@ -5,10 +5,19 @@
              Width="250" Height="200"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center">
-            <TextBox Width="100" Margin="5,5,5,5" Text="{Binding LoginName}"></TextBox>
-            <Button Content="Login" Margin="5,5,5,5" Command="{Binding CloseDialogCommand}" CommandParameter="true"></Button>
+    <Grid Background="Azure">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel  Margin="5,5,5,5" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Label>Room:  </Label>
+                <TextBox Width="100" Margin="5,5,5,5" Text="{Binding Room}"></TextBox>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center">
+                <Label>User  : </Label>
+                <TextBox Width="100" Margin="5,5,5,5" Text="{Binding LoginName}"></TextBox>
+                <Button Content="Login" Margin="5,5,5,5" Command="{Binding CloseDialogCommand}" CommandParameter="true"></Button>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </UserControl>

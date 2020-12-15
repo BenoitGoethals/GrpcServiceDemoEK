@@ -7,14 +7,17 @@ package chatroom;
 // The greeting service definition.
 service ChatRoomService {
 	// Sends a greeting
-	rpc SayHello (HelloRequest) returns (HelloReply);
+	rpc SendMessage (stream MsgChat) returns (stream MsgChat);
 
 
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-	string name = 1;
+message MsgChat {
+	string chatroon = 1;
+	string chatter=3;
+	string msg=4;
+	string Id=5;
 }
 
 // The response message containing the greetings.

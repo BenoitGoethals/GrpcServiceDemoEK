@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using ChatClient.model;
+using ChatClient.Service;
 using ChatCommon.model;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,14 +14,17 @@ namespace ChatClient.ViewModels
     {
         private IDialogService _dialogService;
         private string _title = "GRPC CHAT Application";
-        private Settings _settings;
+        public Settings SettingsApp { get; }
+
+        private RoomService _roomService;
 
 
-        public MainWindowViewModel(ChatRoom chatRoom, IDialogService dialogService, Settings settings)
+        public MainWindowViewModel(ChatRoom chatRoom, IDialogService dialogService, Settings settings, RoomService roomService)
         {
             settings.Subscribe(this);
             this._dialogService = dialogService;
-            _settings = settings;
+            SettingsApp = settings;
+            _roomService = roomService;
 
             LoadedCommand = new DelegateCommand(() =>
             {
@@ -29,7 +33,7 @@ namespace ChatClient.ViewModels
 
             SendCommand = new DelegateCommand(() =>
               {
-                  Room.AddMessage(new Message() { ChatRoom = Room, Chatter = _settings.ChatterLocal, Content = MessageText, Id = Guid.NewGuid() });
+                  Room.AddMessage(new Message() { ChatRoom = Room, Chatter = SettingsApp.ChatterLocal, Content = MessageText, Id = Guid.NewGuid() });
                   MessageText = "";
               });
             _room = chatRoom;
@@ -49,7 +53,7 @@ namespace ChatClient.ViewModels
         public string MessageText
         {
             get => _messageText;
-            set { _messageText = value; SetProperty(ref _messageText, value); }
+            set { _messageText = value; SetProperty(ref _messageText, value); RaisePropertyChanged(nameof(MessageText)); }
         }
 
         public Chatter LocalUser
@@ -77,7 +81,10 @@ namespace ChatClient.ViewModels
         public ChatRoom Room
         {
             get => _room;
-            set => _room = value;
+            set { _room = value;
+                SetProperty(ref _room, value);
+                RaisePropertyChanged(nameof(Room));
+            }
         }
 
         private Chatter _localUser;
@@ -87,6 +94,7 @@ namespace ChatClient.ViewModels
 
         public void SettingChanged(Settings settings)
         {
+          
             LocalUser = settings.ChatterLocal;
             Room.AddChatter(LocalUser);
         }

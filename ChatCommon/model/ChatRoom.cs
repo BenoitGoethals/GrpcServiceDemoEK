@@ -13,10 +13,11 @@ using ChatCommon.Annotations;
 namespace ChatCommon.model
 {
   public  class ChatRoom :INotifyPropertyChanged
-    {
-        public Guid Guid { get; set; }
+  {
+      public Guid Guid { get; set; } = Guid.NewGuid();
         private  ObservableCollection<Chatter> _chatters=new ObservableCollection<Chatter>();
         private  ObservableCollection<Message> _messages=new ObservableCollection<Message>();
+        private string _name;
 
 
         public ObservableCollection<Chatter> Chatters //Binds with the listbox
@@ -37,7 +38,13 @@ namespace ChatCommon.model
             }
         }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set { _name = value;
+                RaisePropertyChanged(nameof(Name));
+            }
+        }
 
         public ChatRoom()
         {

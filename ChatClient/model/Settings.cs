@@ -12,7 +12,8 @@ namespace ChatClient.model
     public  class Settings
     {
         private  IList<INotifySettings> bindableBases=new List<INotifySettings>();
-        private static Chatter _chatter;
+        private  Chatter _chatter;
+        private  string _chatRoom;
 
         public Chatter ChatterLocal
         {
@@ -21,6 +22,17 @@ namespace ChatClient.model
             {
                 _chatter = value;
                 Notify(this);
+            }
+        }
+
+
+        public string ChatRoomName
+        {
+            get => _chatRoom;
+            set
+            {
+                _chatRoom = value;
+               
             }
         }
 

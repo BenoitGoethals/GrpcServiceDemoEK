@@ -4,19 +4,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChatClient.model;
+using ChatCommon.model;
 using Prism.Services.Dialogs;
 
 namespace ChatClient.ViewModels
 {
     public class LoginViewModel : BindableBase, IDialogAware
     {
-
+        private ChatRoom _chatRoom;
         private Settings _settings;
-        public LoginViewModel(Settings settings)
+        public LoginViewModel(Settings settings, ChatRoom chatRoom)
         {
             this._settings = settings;
+            _chatRoom = chatRoom;
         }
 
+        public string Room
+        {
+            get => _room;
+            set { _room = value; SetProperty(ref _room, value); }
+        }
 
         public string LoginName
         {
@@ -39,6 +46,7 @@ namespace ChatClient.ViewModels
 
         private string _title = "Login";
         private string _loginName;
+        private string _room;
 
         public string Title
         {
@@ -51,7 +59,9 @@ namespace ChatClient.ViewModels
         protected virtual void CloseDialog(string parameter)
         {
             _settings.ChatterLocal=new ChatCommon.model.Chatter(){Guid = new Guid(),Enabled=true,Name=LoginName};
-
+            _settings.ChatRoomName = this.Room;
+            _chatRoom.Name = this.Room;
+            
             RaiseRequestClose(new DialogResult(ButtonResult.OK));
         }
 

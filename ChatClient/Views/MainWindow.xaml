@@ -19,7 +19,7 @@
           
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding Room.Chatters,Mode=TwoWay,UpdateSourceTrigger=Default}">
+        <ListView Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding Room.Chatters,Mode=TwoWay,UpdateSourceTrigger=Default}" Background="DarkKhaki">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -32,7 +32,7 @@
             </ListBox.ItemTemplate>
         </ListView>
         <StackPanel Grid.Column="1" Margin="5,5,5,5" Orientation="Vertical">
-            <ListView Height="333" ItemsSource="{Binding Room. Messages,Mode=TwoWay,UpdateSourceTrigger=Default}" >
+            <ListView Height="333" ItemsSource="{Binding Room. Messages,Mode=TwoWay,UpdateSourceTrigger=Default}" Background="Bisque">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -48,12 +48,14 @@
             </ListView>
             <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
                 <Label Margin="5,5,5,5">Message</Label>
-                <TextBox Margin="5,5,5,5" Width="300" Background="Beige" Text="{Binding MessageText,Mode=TwoWay}"></TextBox>
+                <TextBox Margin="5,5,5,5" Width="300" Background="Beige" Text="{Binding MessageText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Button Margin="5,5,5,5" Command="{Binding SendCommand}">Send</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label  Margin="5,5,5,5" Content="User :" ></Label>
                 <Label  Margin="5,5,5,5" Content="{Binding LocalUser.Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
+                <Label  Margin="5,5,5,5" Content="Chatroom :" ></Label>
+                <Label  Margin="5,5,5,5" Content="{Binding Room.Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
             </StackPanel>
           
         </StackPanel>

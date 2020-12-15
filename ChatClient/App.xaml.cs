@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using System.Windows;
 using ChatClient.model;
+using ChatClient.Service;
 using ChatClient.ViewModels;
 using ChatCommon.model;
 
@@ -19,8 +20,9 @@ namespace ChatClient
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<Settings>();
-            containerRegistry.RegisterSingleton<ChatRoom>();
+            containerRegistry.RegisterInstance<Settings>(new Settings());
+            containerRegistry.RegisterInstance<ChatRoom>(new ChatRoom());
+            containerRegistry.Register<RoomService>();
             containerRegistry.RegisterDialog<Login, LoginViewModel>();
         }
     }
