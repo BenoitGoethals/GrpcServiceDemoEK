@@ -42,8 +42,10 @@ namespace GrpcServiceChatter.Services
             {
                 var note = requestStream.Current;
 
+                
                 _chatRoomManager.AddMsg(note.Chatroon, new Msg() { Chatter = note.Chatter, Guid = Guid.Parse(note.Id), Content = note.Msg, Chatroom = note.Chatroon }, this);
-                if (msgs.TryDequeue(out var msg))
+                var msg = msgs.LastOrDefault();
+                if (msg!=null)
                 {
                     await responseStream.WriteAsync(new MsgChat()
                     {
@@ -65,10 +67,9 @@ namespace GrpcServiceChatter.Services
         }
         public void Notify(Msg msg)
         {
-            lock (msg)
-            {
+           
                 msgs.Enqueue(msg);
-            }
+           
            
 
         }
