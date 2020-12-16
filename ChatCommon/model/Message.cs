@@ -11,8 +11,8 @@ namespace ChatCommon.model
     {
         public Guid Id { get; set; }
         public string Content { get; set; }
-        public ChatRoom ChatRoom { get; set; }
-        public Chatter Chatter { get; set; }
+        public string ChatRoom { get; set; }
+        public string Chatter { get; set; }
 
 
         protected bool Equals(Message other)

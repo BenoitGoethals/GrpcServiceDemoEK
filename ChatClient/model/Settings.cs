@@ -11,39 +11,45 @@ namespace ChatClient.model
 {
     public  class Settings
     {
-        private  IList<INotifySettings> bindableBases=new List<INotifySettings>();
-        private  Chatter _chatter;
-        private  string _chatRoom;
+        private readonly IList<INotifySettings> _bindableBases=new List<INotifySettings>();
+        private string _chatter;
+        private string _chatRoomName;
 
-        public Chatter ChatterLocal
+        public string ChatterLocal
         {
             get => _chatter;
             set
             {
                 _chatter = value;
-                Notify(this);
+               
             }
         }
 
 
         public string ChatRoomName
         {
-            get => _chatRoom;
-            set
-            {
-                _chatRoom = value;
-               
-            }
+            get => _chatRoomName;
+            set { _chatRoomName = value; Notify(this); }
         }
 
+        
+        public void SetSettings(string room, string chatter)
+        {
+            this.ChatRoomName = room;
+            this.ChatterLocal = chatter;
+            Notify(this);
+        }
+        
+
+        
         public  void Subscribe(INotifySettings obj)
         {
-            bindableBases.Add(obj);
+            _bindableBases.Add(obj);
         }
 
         public  void Notify(Settings set)
         {
-            foreach (var notifySettingse in bindableBases)
+            foreach (var notifySettingse in _bindableBases)
             {
                 notifySettingse.SettingChanged(this);
             }

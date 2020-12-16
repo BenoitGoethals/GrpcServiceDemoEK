@@ -15,40 +15,49 @@ namespace ChatClient.ViewModels
         private IDialogService _dialogService;
         private string _title = "GRPC CHAT Application";
         public Settings SettingsApp { get; }
+        public  RoomService RoomService { get; }
+        private string _localUser;
 
-        private RoomService _roomService;
+        private string _chatRoom;
+        private string _messageText;
 
-
-        public MainWindowViewModel(ChatRoom chatRoom, IDialogService dialogService, Settings settings, RoomService roomService)
+        public MainWindowViewModel(IDialogService dialogService, Settings settings, RoomService roomService)
         {
             settings.Subscribe(this);
             this._dialogService = dialogService;
             SettingsApp = settings;
-            _roomService = roomService;
+            RoomService = roomService;
 
             LoadedCommand = new DelegateCommand(() =>
             {
                 _dialogService.ShowDialog("Login", new DialogParameters(), r => { });
+                RoomService.Start();
             });
 
             SendCommand = new DelegateCommand(() =>
-              {
-                  Room.AddMessage(new Message() { ChatRoom = Room, Chatter = SettingsApp.ChatterLocal, Content = MessageText, Id = Guid.NewGuid() });
-                  MessageText = "";
-              });
-            _room = chatRoom;
-            _room.AddEventHandeler(ChattersEvent, MessagesEvent);
+            {
+                RoomService.AddMessage(new Message()
+                    {ChatRoom = settings.ChatRoomName, Chatter = SettingsApp.ChatterLocal, Content = MessageText, Id = Guid.NewGuid()});
+                
+                MessageText = "";
+            });
+
+            RoomService.Chatters.CollectionChanged += Chatters_CollectionChanged;
+            RoomService.Messages.CollectionChanged += Messages_CollectionChanged;
+
         }
 
-        private void MessagesEvent(object? sender, NotifyCollectionChangedEventArgs e)
+        private void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
+            RaisePropertyChanged(nameof(RoomService));
         }
 
-        private void ChattersEvent(object? sender, NotifyCollectionChangedEventArgs e)
+        private void Chatters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Room));
+            RaisePropertyChanged(nameof(RoomService.Chatters));
         }
+
+       
 
         public string MessageText
         {
@@ -56,7 +65,7 @@ namespace ChatClient.ViewModels
             set { _messageText = value; SetProperty(ref _messageText, value); RaisePropertyChanged(nameof(MessageText)); }
         }
 
-        public Chatter LocalUser
+        public string LocalUser
         {
             get => _localUser;
             set
@@ -68,35 +77,38 @@ namespace ChatClient.ViewModels
             }
         }
 
+        public string ChatRoom
+        {
+            get => _chatRoom;
+            set
+            {
+                _chatRoom = value;
+
+                SetProperty(ref _chatRoom, value);
+                RaisePropertyChanged(nameof(ChatRoom));
+            }
+        }
+
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
         public DelegateCommand LoadedCommand { get; private set; }
 
         public DelegateCommand SendCommand { get; private set; }
 
 
-        public ChatRoom Room
-        {
-            get => _room;
-            set { _room = value;
-                SetProperty(ref _room, value);
-                RaisePropertyChanged(nameof(Room));
-            }
-        }
+      
 
-        private Chatter _localUser;
-        private ChatRoom _room;
-        private string _messageText;
 
 
         public void SettingChanged(Settings settings)
         {
-          
             LocalUser = settings.ChatterLocal;
-            Room.AddChatter(LocalUser);
+            ChatRoom = settings.ChatRoomName;
+          
+            RoomService.AddChatter(LocalUser);
         }
     }
 }

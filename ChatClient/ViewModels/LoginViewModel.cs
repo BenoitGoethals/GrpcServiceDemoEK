@@ -11,12 +11,12 @@ namespace ChatClient.ViewModels
 {
     public class LoginViewModel : BindableBase, IDialogAware
     {
-        private ChatRoom _chatRoom;
+        
         private Settings _settings;
-        public LoginViewModel(Settings settings, ChatRoom chatRoom)
+        public LoginViewModel(Settings settings)
         {
             this._settings = settings;
-            _chatRoom = chatRoom;
+            
         }
 
         public string Room
@@ -58,9 +58,8 @@ namespace ChatClient.ViewModels
 
         protected virtual void CloseDialog(string parameter)
         {
-            _settings.ChatterLocal=new ChatCommon.model.Chatter(){Guid = new Guid(),Enabled=true,Name=LoginName};
-            _settings.ChatRoomName = this.Room;
-            _chatRoom.Name = this.Room;
+            _settings.SetSettings(Room,LoginName);
+            
             
             RaiseRequestClose(new DialogResult(ButtonResult.OK));
         }

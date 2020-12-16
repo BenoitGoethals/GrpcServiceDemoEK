@@ -19,25 +19,16 @@
           
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding Room.Chatters,Mode=TwoWay,UpdateSourceTrigger=Default}" Background="DarkKhaki">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock >
-                            <Run Text="{Binding Path=Name}"/>
-                          
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListView Grid.Column="0" Margin="5,5,5,5" ItemsSource="{Binding RoomService.Chatters,Mode=TwoWay,UpdateSourceTrigger=Default}" Background="DarkKhaki">
+            
         </ListView>
         <StackPanel Grid.Column="1" Margin="5,5,5,5" Orientation="Vertical">
-            <ListView Height="333" ItemsSource="{Binding Room. Messages,Mode=TwoWay,UpdateSourceTrigger=Default}" Background="Bisque">
+            <ListView Height="333" ItemsSource="{Binding RoomService.Messages,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Background="Bisque">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock >
-                                <Run Text="{Binding Path=Chatter.Name}"/>
+                                <Run Text="{Binding Path=Chatter}"/>
                                   <Run Text="=>"/>
                                 <Run Text="{Binding Path=Content}"/>
                             </TextBlock>
@@ -53,9 +44,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label  Margin="5,5,5,5" Content="User :" ></Label>
-                <Label  Margin="5,5,5,5" Content="{Binding LocalUser.Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
+                <Label  Margin="5,5,5,5" Content="{Binding LocalUser,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
                 <Label  Margin="5,5,5,5" Content="Chatroom :" ></Label>
-                <Label  Margin="5,5,5,5" Content="{Binding Room.Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
+                <Label  Margin="5,5,5,5" Content="{Binding ChatRoom,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" ></Label>
             </StackPanel>
           
         </StackPanel>

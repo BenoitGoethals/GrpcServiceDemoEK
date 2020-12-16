@@ -30,7 +30,7 @@ namespace GrpcServiceChatter.Services
             var httpContext = context.GetHttpContext();
             _logger.LogInformation($"Connection id: {httpContext.Connection.Id}");
 
-            
+
             if (!await requestStream.MoveNext())
             {
                 return;
