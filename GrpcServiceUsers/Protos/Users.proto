@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceUsers.Protos";
+
+
+service UsersSecurity{
+
+	rpc GetUser (Filter) returns (User);
+	rpc GetUsers(FilterActive) returns (UserCollection);
+}
+
+// The request message containing the user's name.
+message Filter {
+	string Guid = 1;
+}
+
+message FilterActive {
+	bool active = 1;
+}
+
+// The response message containing the greetings.
+message User {
+    string guid=1;	
+	string LatName= 2;
+	string email=3;
+	bool Active=4;
+	
+	
+}
+
+message UserCollection {
+	repeated User user = 1;
+}

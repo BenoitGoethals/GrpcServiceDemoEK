@@ -41,11 +41,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatCommonTests", "ChatComm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiTester", "BiTester\BiTester.csproj", "{04FE038E-6C91-40BD-A2EC-D061F44515C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServiceUsers", "GrpcServiceUsers\GrpcServiceUsers.csproj", "{90556052-F789-4A8B-AFBD-1E1EA0FF1D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServiceUsers", "GrpcServiceUsers\GrpcServiceUsers.csproj", "{90556052-F789-4A8B-AFBD-1E1EA0FF1D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserClienAuth", "UserClienAuth\UserClienAuth.csproj", "{6BE620CE-54A9-4DC9-AE7C-890E3D95A142}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserClienAuth", "UserClienAuth\UserClienAuth.csproj", "{6BE620CE-54A9-4DC9-AE7C-890E3D95A142}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppGRPCClientPush", "ConsoleAppGRPCClientPush\ConsoleAppGRPCClientPush.csproj", "{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProjectServiceUsers", "XUnitTestProjectServiceUsers\XUnitTestProjectServiceUsers.csproj", "{037C3C51-FE70-48BE-A4DA-6A081D816E7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037C3C51-FE70-48BE-A4DA-6A081D816E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037C3C51-FE70-48BE-A4DA-6A081D816E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037C3C51-FE70-48BE-A4DA-6A081D816E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037C3C51-FE70-48BE-A4DA-6A081D816E7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{90556052-F789-4A8B-AFBD-1E1EA0FF1D4B} = {08DA0BC5-7895-4E58-81C6-0CD3DC17D63A}
 		{6BE620CE-54A9-4DC9-AE7C-890E3D95A142} = {08DA0BC5-7895-4E58-81C6-0CD3DC17D63A}
 		{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0} = {30AE739D-C511-4352-A4D6-D92270D15E0E}
+		{037C3C51-FE70-48BE-A4DA-6A081D816E7C} = {08DA0BC5-7895-4E58-81C6-0CD3DC17D63A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ACE0D00-43A0-4A69-8A81-310958807C1B}
