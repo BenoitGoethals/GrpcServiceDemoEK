@@ -21,7 +21,6 @@ namespace GrpcServiceBook.storage
             var myJsonString = File.ReadAllText(@"dataBooks.json");
             _books = JsonConvert.DeserializeObject<List<Common.model.Book>>(myJsonString);
 
-
         }
 
         public Common.model.Book GetBook(string isbn)
@@ -33,11 +32,5 @@ namespace GrpcServiceBook.storage
         {
             return _books;
         }
-    }
-
-    public interface IBookStorage
-    {
-        Common.model.Book GetBook(string isbn);
-        List<Common.model.Book> Books();
     }
 }
