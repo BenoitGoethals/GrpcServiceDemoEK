@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GrpcServiceBook.Services;
+using GrpcServiceBook.storage;
 
 namespace GrpcServiceBook
 {
@@ -18,6 +19,7 @@ namespace GrpcServiceBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddSingleton<IBookStorage>(new BookStorage());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

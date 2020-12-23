@@ -19,7 +19,7 @@ namespace GrpcServiceChatter.Services
 
         private readonly ConcurrentQueue<Msg> _msgs = new ConcurrentQueue<Msg>();
 
-        private  Task watcher;
+        private  Task _watcher;
 
         public ChatService(ILogger<ChatService> logger, ChatRoomManager chatRoomManager)
         {
@@ -33,7 +33,7 @@ namespace GrpcServiceChatter.Services
             var httpContext = context.GetHttpContext();
             _logger.LogInformation($"Connection id: {httpContext.Connection.Id}");
 
-            watcher ??= new Task(async () =>
+            _watcher ??= new Task(async () =>
             {
                 while (!context.CancellationToken.IsCancellationRequested)
                 {
@@ -52,7 +52,7 @@ namespace GrpcServiceChatter.Services
 
             });
 
-            watcher.Start();
+            _watcher.Start();
 
 
             while (await requestStream.MoveNext() && !context.CancellationToken.IsCancellationRequested)
@@ -67,23 +67,17 @@ namespace GrpcServiceChatter.Services
          
 
 
-
-
-            //   await responseStream.WriteAsync();
-
         }
         public void Notify(Msg msg)
         {
            
                 _msgs.Enqueue(msg);
-           
-           
 
         }
 
         public void Dispose()
         {
-            watcher?.Dispose();
+            _watcher?.Dispose();
         }
     }
 }

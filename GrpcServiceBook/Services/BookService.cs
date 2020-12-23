@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using GrpcServiceBook.storage;
 using Microsoft.Extensions.Logging;
 
 namespace GrpcServiceBook.Services
@@ -11,23 +12,42 @@ namespace GrpcServiceBook.Services
     public class BookService:LibBook.LibBookBase
     {
         private readonly ILogger<BookService> _logger;
+        private readonly IBookStorage _bookStorage;
 
-        public BookService(ILogger<BookService> logger)
+        public BookService(ILogger<BookService> logger, IBookStorage bookStorage)
         {
             _logger = logger;
+            _bookStorage = bookStorage;
         }
 
         public override Task<BookCollection> Books(Empty request, ServerCallContext context)
         {
-            IList<Book> books = new List<Book>()
+            IList<Book> books=new List<Book>();
+            _bookStorage.Books().ForEach(b=>
             {
-                new Book(){Author = "benoit",Genre = Genre.Novel,Isbn = "dfdsfdf656556",Pages=500,Published=Timestamp.FromDateTime(DateTime.UtcNow),Id=1,Language="NL",Title="war"},
-                new Book(){Author = "benoit",Genre = Genre.Novel,Isbn = "dfdsfdf656556",Pages=500,Published=Timestamp.FromDateTime(DateTime.UtcNow),Id=2,Language="BE",Title="war2"},
-                new Book(){Author = "ilse",Genre = Genre.Novel,Isbn = "dfdsfdf656556",Pages=500,Published=Timestamp.FromDateTime(DateTime.UtcNow),Id=3,Language="NL",Title="war3"},
-                new Book(){Author = "mais",Genre = Genre.Novel,Isbn = "dfdsfdf656556",Pages=500,Published=Timestamp.FromDateTime(DateTime.UtcNow),Id=4,Language="NL",Title="war4"},
-                new Book(){Author = "Ikke",Genre = Genre.Novel,Isbn = "dfdsfdf656556",Pages=500,Published=Timestamp.FromDateTime(DateTime.UtcNow),Id=5,Language="NL",Title="war5"},
-            };
+                b.Genre ??= Common.model.Genre.Novel;
+                books.Add(new Book() { Isbn = b.Isbn,Author = b.Author,Genre =  (Genre) b.Genre,Id = b.Id,Language = b.Language,Pages = b.Pages,Published = new Timestamp(),Title = b.Title});
+            });
             var reply= new BookCollection(){Book={books}};
+            return Task.FromResult(reply);
+        }
+
+
+        public override Task<Book> GetBook(RequestIsbn request, ServerCallContext context)
+        {
+            var book = _bookStorage.GetBook(isbn: request.Isbn);
+            if (book == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound,$"{request.Isbn} Not Found"));
+            }
+            book.Genre ??= Common.model.Genre.Novel;
+            var reply = new Book()
+            {
+                Isbn = book.Isbn, Author = book.Author, Genre = (Genre) book.Genre, Id = book.Id, Language = book.Language,
+                Pages = book.Pages, Published = new Timestamp(), Title = book.Title
+            };
+
+
             return Task.FromResult(reply);
         }
     }

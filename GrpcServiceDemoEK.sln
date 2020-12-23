@@ -51,7 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProjectServiceUser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{9D78FFAE-F456-41C2-A1AB-0095D9F1F38A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServiceFlights", "GrpcServiceFlights\GrpcServiceFlights.csproj", "{EECDC969-710C-4EE7-8ECF-E3DF7672F22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServiceFlights", "GrpcServiceFlights\GrpcServiceFlights.csproj", "{EECDC969-710C-4EE7-8ECF-E3DF7672F22F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServiceBookTests", "GrpcServiceBookTests\GrpcServiceBookTests.csproj", "{99FD7C91-726F-481B-9A28-050757F378EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +133,10 @@ Global
 		{EECDC969-710C-4EE7-8ECF-E3DF7672F22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EECDC969-710C-4EE7-8ECF-E3DF7672F22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EECDC969-710C-4EE7-8ECF-E3DF7672F22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99FD7C91-726F-481B-9A28-050757F378EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FD7C91-726F-481B-9A28-050757F378EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99FD7C91-726F-481B-9A28-050757F378EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99FD7C91-726F-481B-9A28-050757F378EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{E1A60D8D-1555-4505-9F89-62F0EF8FAEF0} = {30AE739D-C511-4352-A4D6-D92270D15E0E}
 		{037C3C51-FE70-48BE-A4DA-6A081D816E7C} = {08DA0BC5-7895-4E58-81C6-0CD3DC17D63A}
 		{EECDC969-710C-4EE7-8ECF-E3DF7672F22F} = {9D78FFAE-F456-41C2-A1AB-0095D9F1F38A}
+		{99FD7C91-726F-481B-9A28-050757F378EC} = {A9F9C8DC-0521-4E52-85DF-49FE830CA5EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ACE0D00-43A0-4A69-8A81-310958807C1B}

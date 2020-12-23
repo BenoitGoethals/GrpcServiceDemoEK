@@ -12,8 +12,8 @@ namespace Common.model
         public string Author { get; set; }
         public DateTime Published { get; set; }
         public int Pages { get; set; }
-        public string Language { get; set; }
-        public Genre Genre { get; set; }
+        public string ?Language { get; set; }
+        public Genre ?Genre { get; set; }
 
 
         protected bool Equals(Book other)
