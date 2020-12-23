@@ -6,17 +6,20 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Grpc.Core;
 using GrpcServiceChatter.model;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Microsoft.Extensions.Logging;
 
 namespace GrpcServiceChatter.Services
 {
-    public class ChatService : GrpcServiceChatter.ChatRoomService.ChatRoomServiceBase
+    public class ChatService : GrpcServiceChatter.ChatRoomService.ChatRoomServiceBase, IDisposable
     {
         public Guid Guid=Guid.NewGuid();
         private readonly ILogger<ChatService> _logger;
         private readonly ChatRoomManager _chatRoomManager;
 
-        private readonly ConcurrentQueue<Msg> msgs = new ConcurrentQueue<Msg>();
+        private readonly ConcurrentQueue<Msg> _msgs = new ConcurrentQueue<Msg>();
+
+        private  Task watcher;
 
         public ChatService(ILogger<ChatService> logger, ChatRoomManager chatRoomManager)
         {
@@ -30,12 +33,26 @@ namespace GrpcServiceChatter.Services
             var httpContext = context.GetHttpContext();
             _logger.LogInformation($"Connection id: {httpContext.Connection.Id}");
 
-
-            if (!await requestStream.MoveNext())
+            watcher ??= new Task(async () =>
             {
-                return;
-            }
+                while (!context.CancellationToken.IsCancellationRequested)
+                {
+                    if (_msgs.TryDequeue(out Msg msg))
+                    {
+                        await responseStream.WriteAsync(new MsgChat()
+                        {
+                            Id = msg.Guid.ToString(),
+                            Chatter = msg.Chatter,
+                            Msg = msg.Content,
+                            Chatroon = msg.Chatroom
+                        });
+                    }
+                }
+                
 
+            });
+
+            watcher.Start();
 
 
             while (await requestStream.MoveNext() && !context.CancellationToken.IsCancellationRequested)
@@ -44,17 +61,7 @@ namespace GrpcServiceChatter.Services
 
                 
                 _chatRoomManager.AddMsg(note.Chatroon, new Msg() { Chatter = note.Chatter, Guid = Guid.Parse(note.Id), Content = note.Msg, Chatroom = note.Chatroon }, this);
-                var msg = msgs.LastOrDefault();
-                if (msg!=null)
-                {
-                    await responseStream.WriteAsync(new MsgChat()
-                    {
-                        Id = msg.Guid.ToString(),
-                        Chatter = msg.Chatter,
-                        Msg = msg.Content,
-                        Chatroon = msg.Chatroom
-                    });
-                }
+                
 
             }
          
@@ -68,10 +75,15 @@ namespace GrpcServiceChatter.Services
         public void Notify(Msg msg)
         {
            
-                msgs.Enqueue(msg);
+                _msgs.Enqueue(msg);
            
            
 
+        }
+
+        public void Dispose()
+        {
+            watcher?.Dispose();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,7 @@ namespace GrpcServiceUsers
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddSingleton<UserDb>(new UserDb());
 

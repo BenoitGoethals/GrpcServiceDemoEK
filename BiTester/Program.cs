@@ -37,7 +37,7 @@ namespace BiTester
                   while (true)
                   {
                      await Task.Delay(TimeSpan.FromSeconds(1));
-                      await call.RequestStream.WriteAsync(new MsgChat() { Chatroon = "1", Chatter = "dfdsf", Id = Guid.NewGuid().ToString(), Msg = "fdFDSFds" });
+                      await call.RequestStream.WriteAsync(new MsgChat() { Chatroon = "1", Chatter = "1", Id = Guid.NewGuid().ToString(), Msg = "fdFDSFds" });
                   }
               });
             _ = Task.Run(async () =>
@@ -53,7 +53,7 @@ namespace BiTester
                         while (await call.ResponseStream.MoveNext())
                         {
                             var note = call.ResponseStream.Current;
-                           Console.WriteLine("2 Received " + note);
+                 //          Console.WriteLine("2 Received " + note);
                         }
                     });
 
@@ -82,7 +82,7 @@ namespace BiTester
                         while (await call.ResponseStream.MoveNext())
                         {
                             var note = call.ResponseStream.Current;
-                            Console.WriteLine("Received " + note);
+                   //         Console.WriteLine("Received " + note);
                         }
                     });
 
