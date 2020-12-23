@@ -13,6 +13,10 @@ namespace WpfAppGrpcBook.Services
 {
     public class BookService:IBookService
     {
+        /// <summary>
+        /// Get all Books
+        /// </summary>
+        /// <returns></returns>
         public async Task<IList<Book>> GetAll()
         {
             IList<Book> books = new List<Book>();
@@ -21,6 +25,11 @@ namespace WpfAppGrpcBook.Services
             var rest=await client.BooksAsync(new Empty());
             rest.Book.ToList().ForEach(b=>books.Add(new Book(){Title=b.Title,Author=b.Author,Genre=(Genre) b.Genre,Language=b.Language, Isbn = b.Isbn,Pages=b.Pages,Id=b.Id,Published=b.Published.ToDateTime()}));
             return books;
+        }
+
+        public Book GetBook(string isbn)
+        {
+            throw new NotImplementedException();
         }
     }
 }

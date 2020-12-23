@@ -12,8 +12,6 @@ namespace ChatCommonTests.model
         public void AddMessageTest()
         {
             ChatRoom chatRoom = new ChatRoom();
-            
-
 
             chatRoom.AddMessage(new Message(){ChatRoom="sdfdsfds",Content="loilsel",Id=Guid.NewGuid(),Chatter="dsfdsfds"});
             chatRoom.AddMessage(new Message() { ChatRoom = "sdfsdf", Content = "loilselfdffs", Id = Guid.NewGuid(), Chatter = "sdfds" });

@@ -12,6 +12,7 @@ package GrpcServiceBook;
 service LibBook {
 	// Sends a greeting
 	rpc Books (google.protobuf.Empty) returns ( BookCollection);
+	rpc GetBook (RequestIsbn) returns ( Book);
 }
 enum Genre{
 	SFI=0;
@@ -19,6 +20,12 @@ enum Genre{
 	Romance=2;
 	Novel=3;
 }
+
+message RequestIsbn{
+	string Isbn=1;
+}
+
+
 message Book{
 
 int32 id=1;
