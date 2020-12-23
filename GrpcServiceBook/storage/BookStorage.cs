@@ -18,7 +18,7 @@ namespace GrpcServiceBook.storage
         private void Load()
         {
 
-            var myJsonString = File.ReadAllText(@"c:\temp\dataBooks.json");
+            var myJsonString = File.ReadAllText(@"dataBooks.json");
             _books = JsonConvert.DeserializeObject<List<Common.model.Book>>(myJsonString);
 
 

@@ -14,7 +14,6 @@ namespace GrpcServiceBookTests.Services
 
         }
 
-        
         [Fact()]
         public void GetBooksTest()
         {
