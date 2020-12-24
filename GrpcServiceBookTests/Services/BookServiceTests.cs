@@ -30,6 +30,15 @@ namespace GrpcServiceBookTests.Services
             var client = new LibBook.LibBookClient(_channel);
             var rt = client.GetBook(new RequestIsbn() {Isbn = "16190610 7261"}).Id.Should().Be(2);
         }
+
+
+        [Fact()]
+        public void GetBookBadTest()
+        {
+            var client = new LibBook.LibBookClient(_channel);
+            var rt = client.GetBook(new RequestIsbn() { Isbn = "16190610 7261" }).Id.Should().Be(2);
+        }
+
         [Fact()]
         public void GetBookBqdTest()
         {
