@@ -7,6 +7,6 @@ namespace WpfAppGrpcBook.Services
     public interface IBookService
     {
         Task<IList<Book>> GetAll();
-        Book GetBook(string isbn);
+        Task<Book> GetBookAsync(string isbn);
     }
 }

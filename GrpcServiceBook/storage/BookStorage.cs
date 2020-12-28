@@ -32,5 +32,12 @@ namespace GrpcServiceBook.storage
         {
             return _books;
         }
+
+        public Common.model.Book AddBook(Common.model.Book book)
+        {
+            book.Id = _books.Max(t => t.Id)+1;
+            _books.Add(book);
+         return book;
+        }
     }
 }
