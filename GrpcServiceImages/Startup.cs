@@ -7,26 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using GrpcServiceBook.mapper;
-using GrpcServiceBook.Services;
-using GrpcServiceBook.storage;
+using GrpcServiceImages.Services;
 
-namespace GrpcServiceBook
+namespace GrpcServiceImages
 {
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {  services.AddAutoMapper(y=>y.AddProfile(new BookMapper()));
+        {
             services.AddGrpc();
-            services.AddSingleton<IBookStorage>(new BookStorage());
-
-         
-          
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,7 +32,7 @@ namespace GrpcServiceBook
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<BookService>();
+                endpoints.MapGrpcService<ImageService>();
 
                 endpoints.MapGet("/", async context =>
                 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcServiceBook.storage;
@@ -13,11 +14,12 @@ namespace GrpcServiceBook.Services
     {
         private readonly ILogger<BookService> _logger;
         private readonly IBookStorage _bookStorage;
-
-        public BookService(ILogger<BookService> logger, IBookStorage bookStorage)
+        private IMapper _mapper;
+        public BookService(ILogger<BookService> logger, IBookStorage bookStorage, IMapper mapper)
         {
             _logger = logger;
             _bookStorage = bookStorage;
+            _mapper = mapper;
         }
 
         public override Task<BookCollection> Books(Empty request, ServerCallContext context)
@@ -33,8 +35,9 @@ namespace GrpcServiceBook.Services
         }
 
 
-        public override Task<Book> GetBook(RequestIsbn request, ServerCallContext context)
+        public override Task<Book> GetBook(RequestIsbn request, ServerCallContext context) 
         {
+          
             var book = _bookStorage.GetBook(isbn: request.Isbn);
             if (book == null)
             {
@@ -49,6 +52,27 @@ namespace GrpcServiceBook.Services
 
 
             return Task.FromResult(reply);
+        }
+
+
+        public override Task<Book> insertBook(Book book, ServerCallContext context)
+        {
+         
+            var reply = new Common.model.Book()
+            {
+                Isbn = book.Isbn,
+                Author = book.Author,
+                Genre = (Common.model.Genre?)book.Genre,
+                Id = book.Id,
+                Language = book.Language,
+                Pages = book.Pages,
+              //  Published = new Timestamp(),
+                Title = book.Title
+            };
+             reply =  _bookStorage.AddBook(reply);
+
+             book.Id = reply.Id;
+            return  Task.FromResult(book);
         }
     }
 }

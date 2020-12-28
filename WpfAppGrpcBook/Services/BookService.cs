@@ -21,15 +21,27 @@ namespace WpfAppGrpcBook.Services
         {
             IList<Book> books = new List<Book>();
             using var channel = GrpcChannel.ForAddress("https://localhost:5001");
-            var client = new LibBook.LibBookClient(channel);
+             var client = new LibBook.LibBookClient(channel);
             var rest=await client.BooksAsync(new Empty());
             rest.Book.ToList().ForEach(b=>books.Add(new Book(){Title=b.Title,Author=b.Author,Genre=(Genre) b.Genre,Language=b.Language, Isbn = b.Isbn,Pages=b.Pages,Id=b.Id,Published=b.Published.ToDateTime()}));
+            
             return books;
         }
 
-        public Book GetBook(string isbn)
+        public async Task<Book> GetBookAsync(string isbn)
         {
-            throw new NotImplementedException();
+            
+            using var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new LibBook.LibBookClient(channel);
+            var b = await client.GetBookAsync(new RequestIsbn(){Isbn =isbn});
+            Common.model.Book bookDto = new Common.model.Book()
+            {
+                Title = b.Title, Author = b.Author, Genre = (Genre) b.Genre, Language = b.Language, Isbn = b.Isbn,
+                Pages = b.Pages, Id = b.Id, Published = b.Published.ToDateTime()
+            };
+
+            return bookDto;
+
         }
     }
 }

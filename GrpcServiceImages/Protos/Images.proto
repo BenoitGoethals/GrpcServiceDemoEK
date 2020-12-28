@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceImages.Protos";
+
+
+service Images{
+	rpc addImage(stream UploadFileRequest) returns (status);
+	rpc addImageBulk(stream UploadFileRequest) returns (status);
+
+	rpc getImage(FileInfo) returns (imageBlob);
+}
+
+message imageBlob{
+	bytes img=1;
+}
+
+
+message status{
+	bool msg=1;
+}
+
+// used for plain grpcs service to grpc service
+message UploadFileRequest{
+	oneof data {
+		FileInfo info = 1;
+		bytes chunk_data = 2;
+	};
+}
+// used for plain grpcs service to grpc service
+message FileInfo{
+	string name = 1;
+	int64 size = 2;
+	string type = 3;
+
+}
+// used for plain grpcs service to grpc service and web grpcs
+message UploadFileResponse {
+	string url = 1;
+	string id = 2;
+	uint64 size = 3;
+}
+// used for web grpcs, can not use one of caused by async communication
+message FileUploadChunkRequest{
+	string uuid = 1;
+	bytes chunk = 2;
+	uint64 offset = 3;
+	uint64 size = 4;
+	string name = 5;
+	string type = 6;
+	bool finished = 7;
+}
