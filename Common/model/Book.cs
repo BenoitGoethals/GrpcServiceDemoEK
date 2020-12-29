@@ -31,7 +31,7 @@ namespace Common.model
 
         public override int GetHashCode()
         {
-            return (Isbn != null ? Isbn.GetHashCode() : 0);
+            return Isbn != null ? Isbn.GetHashCode() : 0;
         }
 
         public override string ToString()
