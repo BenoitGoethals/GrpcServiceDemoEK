@@ -24,6 +24,8 @@ namespace GrpcServiceBook.Services
 
         public override Task<BookCollection> Books(Empty request, ServerCallContext context)
         {
+            
+            
             IList<Book> books=new List<Book>();
             _bookStorage.Books().ForEach(b=>
             {
