@@ -175,7 +175,7 @@ who participated in this project.
 
 ## 🎉 Acknowledgments <a name = "acknowledgments"></a>
 
- [Markup scheet #0](docs/markdown-cheat-sheet.md)
+ [Markup scheet #0](doc/markdown-cheat-sheet.md)
 - Hat tip to anyone whose code was used
 - Inspiration
 - References
