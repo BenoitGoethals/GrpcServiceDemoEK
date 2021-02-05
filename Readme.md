@@ -1,8 +1,9 @@
 ﻿<p align="center">
   <a href="" rel="noopener">
- <img src="https://i.imgur.com/AZ2iWek.png" alt="Project logo"></a>
+ <img src="https://i.morioh.com/2019/11/20/19d8ced21da5.jpg" class="o-logo">
+</a>
 </p>
-<h3 align="center">Project Title</h3>
+<h3 align="center">GRPC DEMO</h3>
 
 <div align="center">
 
