@@ -30,7 +30,7 @@ namespace WpfAppClientServerStream.Services
             using var channel = GrpcChannel.ForAddress("https://localhost:5001");
             var client = new Climate.ClimateClient(channel);
 
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(50000));
+            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(100));
             using var streamingCall = client.GetTemperature(new HelloRequest(){City="gent"}, cancellationToken: cts.Token);
 
             try
