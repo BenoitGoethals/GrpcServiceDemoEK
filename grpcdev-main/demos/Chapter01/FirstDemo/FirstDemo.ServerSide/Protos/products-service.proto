@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+option csharp_namespace = "FirstDemo.ServerSide.Services";
+
+service ProductsService{
+	rpc GetProductById(GetProductByIdRequest) returns(GetProductByIdResponse);
+	rpc GetProducts(GetProductsRequest) returns(stream GetProductsResponse);
+	rpc BatchUpdateProducts(stream BatchUpdateProductRequest) returns (BatchUpdateProductResponse);
+	rpc BatchInsertProducts(stream BatchInsertProductRequest) returns (stream BatchInsertProductResponse);
+
+	rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
+
+	rpc InsertProduct(InsertProductRequest) returns (InsertProductResponse);
+
+	rpc DeleteProduct(DeleteProductRequest) returns (stream DeleteProductResponse);
+}
+
+message GetProductByIdRequest{
+	uint32 id = 1;
+}
+
+message GetProductByIdResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message GetProductsRequest{
+}
+
+message GetProductsResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message BatchUpdateProductRequest{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+message BatchUpdateProductResponse{
+	uint32 updated_products = 1;
+}
+
+message BatchInsertProductRequest{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+message BatchInsertProductResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message UpdateProductRequest{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message UpdateProductResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message InsertProductRequest{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message InsertProductResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}
+
+message DeleteProductRequest{
+	uint32 id = 1;
+}
+
+message DeleteProductResponse{
+	uint32 id = 1;
+	string name = 2;
+	string brand = 3;
+	double price = 4;
+}

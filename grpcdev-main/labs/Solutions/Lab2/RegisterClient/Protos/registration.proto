@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option csharp_namespace = "Lab2";
+
+package registration;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+service Registration {
+  rpc Register (RegisterRequest) returns (RegisterReply);
+}
+
+message Address{
+	string street = 1;
+	uint32 number = 2;
+	string zip = 3;
+	string city = 4;
+}
+
+enum MemberType
+{
+	Basic = 0;
+	Gold = 1;
+	Platinum = 2;
+}
+
+message RegisterRequest {
+  string name = 1;
+  oneof AddressType
+  {
+	Address address = 2;
+	string email = 3;
+	};
+  google.protobuf.Timestamp birthdate = 4;
+  bytes picture = 5;
+  MemberType subscriptionType = 6;
+  repeated string familymember = 10;
+}
+
+message RegisterReply {
+  string welcome = 1;
+  uint32 price = 2;
+  google.protobuf.Duration confirmedAge = 3;
+  repeated string subscriptionKey = 4;
+}

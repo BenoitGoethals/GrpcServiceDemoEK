@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "Lab3";
+
+package calculate;
+
+// The greeting service definition.
+service Calculate {
+  // Sends a greeting
+  rpc Add (stream CalcRequest) returns (CalcReply);
+}
+
+// The request message containing the user's name.
+message CalcRequest {
+  uint32 number = 1;
+}
+
+// The response message containing the greetings.
+message CalcReply {
+  uint32 result = 1;
+}

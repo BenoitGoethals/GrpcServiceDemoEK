@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Lab01.ServerSide": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5164;https://localhost:7164",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

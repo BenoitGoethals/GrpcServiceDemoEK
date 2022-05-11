@@ -1,0 +1,30 @@
+﻿@using GrpcWebDemo.BlazorWebClient.Core.Interfaces
+@inject IGreeterService service
+@page "/greetings"
+
+<PageTitle>Unary Call</PageTitle>
+
+<h3>Unary Call</h3>
+
+<EditForm Model="MyData" OnSubmit="InvokeService">
+    <InputText @bind-Value="MyData.Name"></InputText>
+    <input type="Submit" />
+</EditForm>
+
+<h3>@Message</h3>
+
+@code {
+    DataForGreeter MyData {get;set;}
+    public string Message {get; set;}
+
+    protected override void OnInitialized() {
+        MyData = new DataForGreeter();
+    }
+    public async Task InvokeService(EditContext editContext) {
+        Message = await service.Greet(MyData.Name);
+    }
+
+    class DataForGreeter{
+        public string Name {get;set;}    
+    }
+}

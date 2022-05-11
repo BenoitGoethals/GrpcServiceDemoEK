@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Lab03.ServerSide";
+
+package calculator_package;
+
+// The greeting service definition.
+service Calculator {
+  // Sends a greeting
+  rpc Sum (stream SumRequest) returns (SumReply);
+  rpc PrimeFactors (stream PrimeFactorsRequest) returns (stream PrimeFactorsReply);
+}
+
+message SumRequest {
+  int32 number = 1;
+}
+
+message SumReply {
+  int64 number = 1;
+}
+
+message PrimeFactorsRequest {
+  int32 number = 1;
+}
+
+message PrimeFactorsReply {
+  int64 number = 1;
+}

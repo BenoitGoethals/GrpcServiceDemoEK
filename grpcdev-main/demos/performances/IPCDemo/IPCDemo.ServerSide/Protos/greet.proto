@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "IPCDemo.ServerSide";
+
+package greet;
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc ClientStreaming (stream HelloRequest) returns (HelloReply);
+  rpc ServerStreaming (HelloRequest) returns (stream HelloReply);
+  rpc Duplex (stream HelloRequest) returns (stream HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

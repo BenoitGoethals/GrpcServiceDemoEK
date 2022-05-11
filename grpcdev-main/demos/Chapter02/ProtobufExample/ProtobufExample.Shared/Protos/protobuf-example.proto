@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProtobufExample.ServerSide.Services";
+
+import "another-proto.proto";
+import "google/protobuf/duration.proto";  
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+service ProtoBufExampleService {
+	rpc Example01 (Example01Request) returns (Example01Response);
+	rpc Example02 (Example02Request) returns (Example02Response);
+	rpc Example03 (Example03Request) returns (Example03Response);
+	rpc Example04 (Example04Request) returns (Example04Response);
+	rpc Example05 (Example05Request) returns (Example05Response);
+	rpc Example06 (Example06Request) returns (Example06Response);
+	rpc Example07 (Example07Request) returns (Example07Response);
+}
+
+message Example01Request {
+}
+
+message Example01Response {
+	double double_field = 1;
+	float float_field = 2;
+	int32 int32_field = 3;
+	int64 int64_field = 4;
+	uint32 uint32_field = 5;
+	uint64 uint64_field = 6;
+	sint32 sint32_field = 7;
+	sint64 sint64_field = 8;
+	fixed32 fixed32_field = 9;
+	fixed64 fixed64_field = 10;
+	sfixed32 sfixed32_field = 11;
+	sfixed64 sfixed64_field = 12;
+	bool bool_field = 13;
+	string string_field = 14;
+	bytes bytes_field = 15;
+	repeated string repeated_string_field = 16;
+}
+
+message Example02Request{
+	int32 id = 1;
+	enum EnumerationDefinition {
+		NOT_SPECIFIED = 0;
+		FIRST_OPTION = 1;
+		SECOND_OPTION = 2;
+		THIRD_OPTION = 3;
+	}
+	EnumerationDefinition enum_field = 2;
+}
+
+enum EnumerationWithAliases {
+	option allow_alias = true;
+	UNKNOWN = 0;
+	FIRST_OPTION = 1;
+	ALIAS_FOR_FIRST_OPTION = 1;
+	SECOND_OPTION = 2;
+}
+
+message Example02Response {
+	int32 id = 1;
+	EnumerationWithAliases enum_field = 2;
+}
+
+message Example03Request {
+	int32 id = 1;
+	google.protobuf.Timestamp timestamp_field = 2;
+	Example03Message imported_field = 3;
+}
+
+message Example03Response {
+	int32 id = 1;
+	google.protobuf.Duration duration_field = 2;
+}
+
+message Example04Request {
+	int32 id = 1;
+	google.protobuf.Any any_field = 2;
+}
+
+message Example04Response {
+	int32 id = 1;
+	google.protobuf.Any any_field = 2;
+}
+
+message EitherThisOne {
+	string string_field = 1;
+}
+
+message OrThisOne {
+	int32 id = 1;
+}
+
+message Example05Request {
+	oneof oneof_field {
+		EitherThisOne this_one = 1;
+		OrThisOne or_this_one = 2;
+	}
+}
+message Example05Response {
+	oneof oneof_field {
+		EitherThisOne this_one = 1;
+		OrThisOne or_this_one = 2;
+	}
+}
+
+message Example06Request {
+	map<string, Example03Message> map_of_messages = 1;
+}
+
+message Example06Response {
+	map<int32,string> map_field = 1;	
+}
+
+message Example07Request {
+}
+
+message Example07Response {
+}

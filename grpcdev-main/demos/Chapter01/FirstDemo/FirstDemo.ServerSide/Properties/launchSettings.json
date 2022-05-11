@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "FirstDemo.ServerSide": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5013;https://localhost:7013",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

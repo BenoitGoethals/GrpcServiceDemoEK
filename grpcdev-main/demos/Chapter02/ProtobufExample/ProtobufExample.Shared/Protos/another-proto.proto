@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProtobufExample.ServerSide.Services";
+
+message Example03Message {
+	int32 id = 1;
+	string name = 2;
+	bool is_it_true = 3;
+}

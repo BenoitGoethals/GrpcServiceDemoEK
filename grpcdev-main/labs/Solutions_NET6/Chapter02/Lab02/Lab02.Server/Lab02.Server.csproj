@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Protos\registration.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\registration.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+</Project>

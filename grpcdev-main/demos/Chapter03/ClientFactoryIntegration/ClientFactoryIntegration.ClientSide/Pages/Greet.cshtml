@@ -1,0 +1,14 @@
+﻿@page
+@model ClientFactoryIntegration.ClientSide.Pages.GreetModel
+@{
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control"/>
+        <input type="submit" class="btn btn-primary" />
+    </div>
+</form>
+
+<h2>gRpc says @Model.Message</h2>

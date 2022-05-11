@@ -1,0 +1,38 @@
+﻿@using GrpcWebDemo.BlazorWebClient.Core.Interfaces
+@inject IGreeterService service
+@page "/greetings-stream"
+
+<PageTitle>Server Streaming</PageTitle>
+
+<h3>Server Streaming</h3>
+
+<EditForm Model="MyData" OnSubmit="InvokeService">
+    <InputText @bind-Value="MyData.Name"></InputText>
+    <input type="Submit" />
+</EditForm>
+
+<ul>
+    @foreach(string message in Messages){
+        <li>@message</li>
+    }
+</ul>
+
+@code {
+    DataForGreeter MyData {get;set;}
+    public List<string> Messages {get; set;}
+
+    protected override void OnInitialized() {
+        MyData = new DataForGreeter();
+        Messages = new List<string>();
+    }
+    public async Task InvokeService(EditContext editContext) {
+        await foreach (string msg in service.GreetStream(MyData.Name)) {
+            Messages.Add(msg);
+            StateHasChanged();
+        }
+    }
+
+    class DataForGreeter{
+        public string Name {get;set;}    
+    }
+}

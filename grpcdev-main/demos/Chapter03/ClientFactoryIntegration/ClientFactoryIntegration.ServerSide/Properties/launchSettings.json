@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "ClientFactoryIntegration.ServerSide": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5023;https://localhost:7023",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
